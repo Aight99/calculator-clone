@@ -69,9 +69,17 @@ extension CalculatorController: UICollectionViewDelegateFlowLayout {
     var marginBetweenButtons: CGFloat { return 10 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let buttonType = keyboardSetup.keyboard[indexPath.row].buttonType
         let totalMargin = CGFloat(keyboardSetup.buttonsInRow + 1) * marginBetweenButtons
         let buttonWidth = (view.frame.width - totalMargin) / CGFloat(keyboardSetup.buttonsInRow)
-        return CGSize(width: buttonWidth, height: buttonWidth)
+        
+        switch buttonType {
+        case .number(let int) where int == 0:
+            return CGSize(width: buttonWidth * 2 + marginBetweenButtons, height: buttonWidth)
+        default:
+            return CGSize(width: buttonWidth, height: buttonWidth)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -28,15 +28,20 @@ class ButtonCell: UICollectionViewCell {
     
     private func setupUI() {
         addSubview(buttonLabel)
+        layer.cornerRadius = frame.size.height / 2
+        layer.masksToBounds = true
         buttonLabel.text = calculatorButton.labelText
         buttonLabel.textColor = calculatorButton.textColor
         buttonLabel.backgroundColor = calculatorButton.buttonColor
+        
+        let bigButtonLabelOffset = frame.size.width - frame.size.height
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            buttonLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            buttonLabel.heightAnchor.constraint(equalTo: heightAnchor),
-            buttonLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonLabel.widthAnchor.constraint(equalToConstant: frame.size.height),
+            buttonLabel.heightAnchor.constraint(equalToConstant: frame.size.height),
             buttonLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            buttonLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -bigButtonLabelOffset),
+            buttonLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }
